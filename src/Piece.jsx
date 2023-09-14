@@ -1,15 +1,36 @@
-export default function Piece({ id, puzzleData }) {
+export default function Piece({ id, puzzleData, dragAndDrop }) {
   const pieceData = puzzleData.array[id];
 
-  return (
+  const div = (
     <div
+      draggable
       style={{
         backgroundImage: `url(${puzzleData.image.src})`,
-        width: `${puzzleData.pieceWidth}px`,
+        width: `${Math.floor(puzzleData.pieceWidth)}px`,
         height: `${puzzleData.pieceHeight}px`,
         backgroundPosition: `${pieceData.xOffset}px ${pieceData.yOffset}px`
       }}
-      onClick={() => puzzleData.setSelected(id)}
+      onDrag={(e) => dragAndDrop.handleDrag(e, id)}
+      onDrop={(e) => dragAndDrop.handleDrop(e, id)}
+      onDragOver={(e) => e.preventDefault()}
     />
   );
+
+  const imgel = (
+    <img
+      draggable
+      src={puzzleData.image.src}
+      style={{
+        objectPosition: `${pieceData.xOffset}px ${pieceData.yOffset}px`,
+        width: `${Math.floor(puzzleData.pieceWidth)}px`,
+        height: `${puzzleData.pieceHeight}px`,
+        objectFit: 'none'
+      }}
+      onDrag={(e) => dragAndDrop.handleDrag(e, id)}
+      onDrop={(e) => dragAndDrop.handleDrop(e, id)}
+      onDragOver={(e) => e.preventDefault()}
+    />
+  );
+
+  return div;
 }

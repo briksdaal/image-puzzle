@@ -21,13 +21,7 @@ export default function Puzzler({ image, width, height, rows, cols }) {
     }
   }
 
-  const [gridArr, setGridArr] = useState(
-    piecesArr.map((p) => ({ id: p.id, piece: null }))
-  );
-  const [availableArr, setAvailableArr] = useState(shuffledArr(rows * cols));
-  const [selected, setSelected] = useState(null);
-
-  console.log(selected);
+  const [gridArr, setGridArr] = useState(shuffledArr(rows * cols));
 
   const puzzleData = {
     image: {
@@ -39,14 +33,12 @@ export default function Puzzler({ image, width, height, rows, cols }) {
     cols,
     array: piecesArr,
     pieceWidth,
-    pieceHeight,
-    setSelected
+    pieceHeight
   };
 
   return (
     <>
-      <Grid gridArr={gridArr} {...puzzleData} />
-      <AvailablePieces availableArr={availableArr} puzzleData={puzzleData} />
+      <Grid gridArr={gridArr} setGridArr={setGridArr} puzzleData={puzzleData} />
     </>
   );
 }

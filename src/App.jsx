@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      <form>
+      {/* <form>
         <label>
           Rows:{' '}
           <input
@@ -43,7 +43,7 @@ function App() {
           }}>
           Render puzzle
         </button>
-      </form>
+      </form> */}
       {width && height && start && (
         <Puzzler
           image={image.src}
