@@ -1,54 +1,48 @@
-import { useState } from 'react';
 import Piece from './Piece';
+import ActivePiece from './ActivePiece';
 
-export default function Grid({ gridArr, setGridArr, puzzleData }) {
-  console.log(gridArr);
-  const [dragged, setDragged] = useState(null);
-
-  function handleDrag(e, id) {
-    e.preventDefault();
-    setDragged(id);
-  }
-
-  function handleDrop(e, id) {
-    e.preventDefault();
+export default function Grid({
+  gridArr,
+  setGridArr,
+  puzzleData,
+  inGame,
+  chosenPiece,
+  setChosenPiece
+}) {
+  function switchPieces(droppedPiece, currentPiece) {
     setGridArr((arr) =>
-      [...arr].map((p) => {
-        if (p === dragged) return id;
-        if (p === id) return dragged;
+      arr.map((p) => {
+        if (p === droppedPiece) return currentPiece;
+        if (p === currentPiece) return droppedPiece;
         return p;
       })
     );
-  }
 
-  const dragAndDrop = {
-    handleDrag,
-    handleDrop
-  };
+    setChosenPiece(null);
+  }
 
   return (
     <div
-      className="puzzle-grid"
+      className="inline-grid justify-center gap-2"
       style={{
-        display: 'grid',
-        gap: '20px',
-        height: puzzleData.image.height + 'px',
-        width: puzzleData.image.width + 'px',
-        gridTemplateRows: `repeat(${puzzleData.rows}, ${Math.floor(
-          puzzleData.pieceHeight
-        )}px)`,
-        gridTemplateColumns: `repeat(${puzzleData.cols}, ${Math.floor(
-          puzzleData.pieceWidth
-        )}px)`
+        gridTemplateRows: `repeat(${puzzleData.rows}, ${puzzleData.pieceHeight}px)`,
+        gridTemplateColumns: `repeat(${puzzleData.cols}, ${puzzleData.pieceWidth}px)`
       }}>
-      {gridArr.map((p) => (
-        <Piece
-          key={p}
-          id={p}
-          puzzleData={puzzleData}
-          dragAndDrop={dragAndDrop}
-        />
-      ))}
+      {gridArr.map((p) =>
+        inGame ? (
+          <ActivePiece
+            key={p}
+            id={p}
+            puzzleData={puzzleData}
+            switchPieces={switchPieces}
+            chosenPiece={chosenPiece}
+            setChosenPiece={setChosenPiece}
+            inGame={inGame}
+          />
+        ) : (
+          <Piece key={p} id={p} puzzleData={puzzleData} />
+        )
+      )}
     </div>
   );
 }

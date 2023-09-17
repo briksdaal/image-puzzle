@@ -1,6 +1,6 @@
-import test_image from './test_image.png';
+import puzzle_image from './puzzle_image.png';
 
 const image = new Image();
-image.src = test_image;
+image.src = puzzle_image;
 
 export default image;

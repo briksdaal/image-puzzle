@@ -1,44 +1,49 @@
 import { useState } from 'react';
 import Grid from './Grid';
-import AvailablePieces from './AvailablePieces';
 import shuffledArr from './helpers/shuffledArr';
+import isCompleted from './helpers/isCompleted';
+import Modal from './Modal';
 
-export default function Puzzler({ image, width, height, rows, cols }) {
-  const pieceWidth = width / cols;
-  const pieceHeight = height / rows;
-  const piecesArr = [];
-  let idx = 0;
-  for (let i = 0; i < rows; i += 1) {
-    for (let j = 0; j < cols; j += 1) {
-      const piece = {
-        id: idx++,
-        x: j,
-        y: i,
-        xOffset: -1 * (pieceWidth * j),
-        yOffset: -1 * (pieceHeight * i)
-      };
-      piecesArr.push(piece);
-    }
+export default function Puzzler({ puzzleData }) {
+  function handleRandomizeClick(e) {
+    e.preventDefault();
+    setInGame(true);
+    setChosenPiece(null);
+    setGridArr(shuffledArr(puzzleData.numOfPieces, true));
   }
 
-  const [gridArr, setGridArr] = useState(shuffledArr(rows * cols));
+  function handleModalClick(e) {
+    setInGame(false);
+    e.preventDefault();
+  }
 
-  const puzzleData = {
-    image: {
-      src: image,
-      width,
-      height
-    },
-    rows,
-    cols,
-    array: piecesArr,
-    pieceWidth,
-    pieceHeight
-  };
+  const [inGame, setInGame] = useState(false);
+  const [gridArr, setGridArr] = useState(shuffledArr(puzzleData.numOfPieces));
+  const [chosenPiece, setChosenPiece] = useState(null);
+
+  const completed = isCompleted(gridArr);
+
+  const btnText = inGame ? 'Randomize Again' : 'Start Game';
 
   return (
-    <>
-      <Grid gridArr={gridArr} setGridArr={setGridArr} puzzleData={puzzleData} />
-    </>
+    <div className="mt-16 flex flex-col items-center gap-y-10">
+      <form>
+        <button
+          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          onClick={handleRandomizeClick}>
+          {btnText}
+        </button>
+      </form>
+      <Grid
+        gridArr={gridArr}
+        setGridArr={setGridArr}
+        puzzleData={puzzleData}
+        inGame={inGame}
+        chosenPiece={chosenPiece}
+        setChosenPiece={setChosenPiece}
+      />
+      {inGame && <p>Click or drag and drop to rearrange the puzzle pieces</p>}
+      {inGame && completed && <Modal handleModalClick={handleModalClick} />}
+    </div>
   );
 }
