@@ -13,8 +13,8 @@ export default function Puzzler({ puzzleData }) {
   }
 
   function handleModalClick(e) {
-    setInGame(false);
     e.preventDefault();
+    setInGame(false);
   }
 
   const [inGame, setInGame] = useState(false);
