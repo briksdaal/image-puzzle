@@ -29,7 +29,7 @@ export default function Puzzler({ puzzleData }) {
     <div className="mt-4 flex flex-col items-center gap-y-4 sm:mt-16 sm:gap-y-10">
       <form>
         <button
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          className="rounded bg-blue-500 px-4 py-2 font-bold text-white lg:hover:bg-blue-700"
           onClick={handleRandomizeClick}>
           {btnText}
         </button>

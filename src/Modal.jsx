@@ -13,7 +13,7 @@ export default function Modal({ handleModalClick }) {
             <div className="flex items-center justify-center p-6">
               <form>
                 <button
-                  className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                  className="rounded bg-blue-500 px-4 py-2 font-bold text-white lg:hover:bg-blue-700"
                   onClick={handleModalClick}>
                   Back
                 </button>
