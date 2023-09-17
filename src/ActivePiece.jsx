@@ -28,11 +28,11 @@ export default function ActivePiece({
 
   const [, drag] = useDrag(() => ({
     type: 'piece',
-    item: { id },
-    collect: (monitor) => {
-      if (monitor.isDragging()) setChosenPiece(id);
-      if (monitor.didDrop()) setChosenPiece(null);
-    }
+    item: () => {
+      setChosenPiece(id);
+      return { id };
+    },
+    end: () => setChosenPiece(null)
   }));
 
   drag(drop(ref));
