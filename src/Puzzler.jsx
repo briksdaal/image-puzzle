@@ -23,13 +23,13 @@ export default function Puzzler({ puzzleData }) {
 
   const completed = isCompleted(gridArr);
 
-  const btnText = inGame ? 'Randomize Again' : 'Start Game';
+  const btnText = inGame ? 'Randomize' : 'Start Game';
 
   return (
     <div className="mt-4 flex flex-col items-center gap-y-4 sm:mt-16 sm:gap-y-10">
       <form>
         <button
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white lg:hover:bg-blue-700"
+          className="w-36 rounded bg-blue-500 px-4 py-2 font-bold text-white lg:hover:bg-blue-700"
           onClick={handleRandomizeClick}>
           {btnText}
         </button>
