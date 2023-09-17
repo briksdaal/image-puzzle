@@ -26,7 +26,7 @@ export default function Puzzler({ puzzleData }) {
   const btnText = inGame ? 'Randomize Again' : 'Start Game';
 
   return (
-    <div className="mt-16 flex flex-col items-center gap-y-10">
+    <div className="mt-4 flex flex-col items-center gap-y-4 sm:mt-16 sm:gap-y-10">
       <form>
         <button
           className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
@@ -42,7 +42,11 @@ export default function Puzzler({ puzzleData }) {
         chosenPiece={chosenPiece}
         setChosenPiece={setChosenPiece}
       />
-      {inGame && <p>Click or drag and drop to rearrange the puzzle pieces</p>}
+      {inGame && (
+        <p className="pl-4 pr-4 text-center">
+          Click or drag and drop to rearrange the puzzle pieces
+        </p>
+      )}
       {inGame && completed && <Modal handleModalClick={handleModalClick} />}
     </div>
   );
